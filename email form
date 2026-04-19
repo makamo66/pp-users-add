@@ -1,0 +1,43 @@
+$(document).ready(function() {
+  $("#emailForm").validate({
+ // debug: true,
+    rules: {
+     email: {
+        required: true,
+        email: true
+      },
+     contributor: {
+        required: true
+      },
+      password: {
+        required: true,
+        minlength: 3
+      },
+     password_confirm: {
+        required: true,
+        equalTo: "#password"
+      }
+   },
+    messages: {
+      email: {
+        required: "Please enter your email address",
+        email: "Please enter a valid email address"
+      },
+     contributor: {
+        required: "Please enter your name"
+        },
+      password: {
+        required: "Please enter a password",
+        minlength: "Your password must be at least 3 characters long"
+      },
+      password_confirm: {
+        required: "Please confirm your password",
+        equalTo: "Passwords do not match"
+      }
+    }
+});
+});
+
+
+
+

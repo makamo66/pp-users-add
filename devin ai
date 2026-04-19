@@ -2,66 +2,26 @@
 (function() {
     // Private flag — not accessible from global scope
     let captchaSolved = false;
- 
-    const button = document.getElementById('button1');
- 
-    // 1. Override removeAttribute so direct calls are blocked
-    const originalRemoveAttribute = button.removeAttribute.bind(button);
-    button.removeAttribute = function(attr) {
-        if (attr === 'disabled' && !captchaSolved) {
-            // Re-apply disabled if captcha wasn't solved
-            button.setAttribute('disabled', 'disabled');
-            return;
-        }
-        originalRemoveAttribute(attr);
-    };
- 
-    // 2. Override the disabled property setter
-    Object.defineProperty(button, 'disabled', {
-        get: function() {
-            return button.hasAttribute('disabled');
-        },
-        set: function(value) {
-            if (!value && !captchaSolved) {
-                // Trying to enable without solving captcha — block it
-                button.setAttribute('disabled', 'disabled');
-                return;
-            }
-            if (value) {
-                button.setAttribute('disabled', 'disabled');
-            } else {
-                originalRemoveAttribute('disabled');
-            }
-        },
-        configurable: false // Prevent re-defining this property
-    });
- 
-    // 3. MutationObserver: re-disable if attribute is removed by other means
-    const observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            if (mutation.attributeName === 'disabled' && !captchaSolved) {
-                button.setAttribute('disabled', 'disabled');
-            }
-        });
-    });
-    observer.observe(button, { attributes: true });
- 
-    // 4. Block form submission if captcha not solved
+
+    // Block form submission if the captcha hasn't been solved yet.
+    // Use preventDefault() only (NOT stopImmediatePropagation) so that
+    // jQuery Validate's own submit handler still runs and renders the
+    // field-level error messages. This way validation errors show up
+    // immediately when the user clicks Register, even before the
+    // reCAPTCHA has been solved.
     document.getElementById('emailForm').addEventListener('submit', function(e) {
         if (!captchaSolved) {
             e.preventDefault();
-            e.stopImmediatePropagation();
             return false;
         }
     });
- 
-    // 5. Captcha callback — only way to flip the flag
+
+    // Captcha callback — only way to flip the flag
     function enableSubmitButton() {
         captchaSolved = true;
-        originalRemoveAttribute('disabled');
     }
- 
-    // 6. Render reCAPTCHA
+
+    // Render reCAPTCHA
     window.onloadCallback = function() {
         grecaptcha.render('recaptcha-widget', {
             'sitekey': '6LchSJMpAAAAAOpvZFRoMM9WEHhMLARnsjNTRFBi',

@@ -1,0 +1,75 @@
+<script>
+(function() {
+    // Private flag — not accessible from global scope
+    let captchaSolved = false;
+ 
+    const button = document.getElementById('button1');
+ 
+    // 1. Override removeAttribute so direct calls are blocked
+    const originalRemoveAttribute = button.removeAttribute.bind(button);
+    button.removeAttribute = function(attr) {
+        if (attr === 'disabled' && !captchaSolved) {
+            // Re-apply disabled if captcha wasn't solved
+            button.setAttribute('disabled', 'disabled');
+            return;
+        }
+        originalRemoveAttribute(attr);
+    };
+ 
+    // 2. Override the disabled property setter
+    Object.defineProperty(button, 'disabled', {
+        get: function() {
+            return button.hasAttribute('disabled');
+        },
+        set: function(value) {
+            if (!value && !captchaSolved) {
+                // Trying to enable without solving captcha — block it
+                button.setAttribute('disabled', 'disabled');
+                return;
+            }
+            if (value) {
+                button.setAttribute('disabled', 'disabled');
+            } else {
+                originalRemoveAttribute('disabled');
+            }
+        },
+        configurable: false // Prevent re-defining this property
+    });
+ 
+    // 3. MutationObserver: re-disable if attribute is removed by other means
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.attributeName === 'disabled' && !captchaSolved) {
+                button.setAttribute('disabled', 'disabled');
+            }
+        });
+    });
+    observer.observe(button, { attributes: true });
+ 
+    // 4. Block form submission if captcha not solved
+    document.getElementById('emailForm').addEventListener('submit', function(e) {
+        if (!captchaSolved) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            return false;
+        }
+    });
+ 
+    // 5. Captcha callback — only way to flip the flag
+    function enableSubmitButton() {
+        captchaSolved = true;
+        originalRemoveAttribute('disabled');
+    }
+ 
+    // 6. Render reCAPTCHA
+    window.onloadCallback = function() {
+        grecaptcha.render('recaptcha-widget', {
+            'sitekey': '6LchSJMpAAAAAOpvZFRoMM9WEHhMLARnsjNTRFBi',
+            //'sitekey' : '6LfxP8UqAAAAAB2D8cItbCOE4Db_KbY7vf2daCSR',//LOCALHOST
+            'callback': enableSubmitButton
+        });
+    };
+})();
+
+</script>
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>

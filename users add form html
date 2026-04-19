@@ -1,0 +1,113 @@
+<div id="text">
+
+           <!--To see this in action, first include the library in your file. Don’t remove the jQuery script tag as the plugin depends on jQuery.-->
+    <script src=
+"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+      </script>
+    <script src=
+"https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js">
+      </script>
+    <script src=
+"https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js">
+      </script>
+      
+   
+<div class="container_x py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+ <form method="post" accept-charset="utf-8" id="emailForm" class="cmxform" action="/users/add"><div style="display:none;"><input type="hidden" name="_csrfToken" value="6H0n7Uka5QCYJNBezVXl1XH9xcNyA5zkJCbqcSeVSIOCTxteFVzazqN3ZAmClY2H/ZjSEnhIaJ6XInQSXW19Mlayf5FVguQwRsug9RZhqtcdRdlJRq14srd9Iz0iOuP4lhVcPOat6eGboeMqSyoOqQ=="></div>  
+  
+ <div class="bg-white_x border_x rounded shadow-sm_ p-4 register_view">
+
+
+<div class="row align-middle_ align-items-center mb-3"><div class="col-sm-4 col-form-label"></div><div class="col-8">
+
+
+<div id="recaptcha-widget"></div>
+
+
+    
+</div></div>                
+                    
+                    <div class="row align-items-center mb-3"><label class="col-sm-4 col-form-label" for="input1">Email:</label>
+                        <div class="col-sm-8">
+                        
+                        
+                        
+               
+<div class="input email required"><input type="email" name="email" class="input_field_add" id="input1" aria-required="true" data-validity-message="This field cannot be left empty" required="required" oninvalid="this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)" oninput="this.setCustomValidity(&#039;&#039;)" maxlength="255"></div>
+                        
+                        <span id="emailError" class="small text-danger error-message">
+                        
+                        
+</span></div>	
+
+
+                        
+                        
+                    </div>
+                    
+           
+           
+           
+                    <div class="row align-items-center mb-3"><label class="col-sm-4 col-form-label" for="input3">Display Name:</label>
+                        <div class="col-sm-8">
+                        
+                    <div class="input text required"><input type="text" name="contributor" class="input_field_add" id="input3" aria-required="true" data-validity-message="This field cannot be left empty" required="required" oninvalid="this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)" oninput="this.setCustomValidity(&#039;&#039;)" maxlength="255"></div>    
+                        
+                        
+                        </div>
+                    </div>
+                    
+                    
+                    
+
+                    <div class="row align-items-center mb-3"><label class="col-sm-4 col-form-label" for="password">Password:</label>
+                        <div class="col-sm-8">
+                        
+                        
+                        <div class="input password required"><input type="password" name="password" id="password" class="input_field_add" aria-required="true" data-validity-message="This field cannot be left empty" required="required" oninvalid="this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)" oninput="this.setCustomValidity(&#039;&#039;)"></div>                        
+                        
+                        </div>
+                    </div>
+	
+	
+
+
+                <div class="row align-items-center mb-3"><label class="col-sm-4 col-form-label" for="input4">Confirm Password:</label>
+                        <div class="col-sm-8">
+                   <div class="input password required"><input type="password" name="password_confirm" class="input_field_add" id="input4" aria-required="true" data-validity-message="This field cannot be left empty" required="required" oninvalid="this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)" oninput="this.setCustomValidity(&#039;&#039;)"></div>                        
+                        
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8 offset-sm-4">
+                            <p id="myParagraph" class="small text-danger"></p>
+                        </div>
+                    </div>
+                    
+                    
+     
+
+
+
+                    <div class="row">
+                        <div class="col-sm-8 offset-sm-4">
+                            <p id="myParagraph" class="small text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-sm-8 offset-sm-4">
+                            <div class="submit">
+                            
+                              <div class="submit"><input type="submit" class="btn_ btn-primary_ btn-block w-100 input_field_ button_ submit_" disabled="disabled" id="button1" value="Register"></div>  
+                              
+                           </div>   
+                        </div>
+                    </div>
+                </div>
+                
+              
+                
+ </form>       </div>
+    </div>

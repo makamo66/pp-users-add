@@ -1,0 +1,14 @@
+function validateForm() {
+
+        let isValid = true;
+          const input1 = document.getElementById('input1');
+ 	  const input2 = document.getElementById('password');
+	  const input3 = document.getElementById('input3');
+	  const input4 = document.getElementById('input4');
+	  
+        if ((input1.value.trim() === '') || (input2.value.trim() === '') || (input3.value.trim() === '') || (input4.value.trim() === '')) {
+   isValid = false;
+        } 
+
+        return isValid;
+    }
